@@ -1,0 +1,14 @@
+variable "vpc_id" {
+  description = "value"
+}
+
+data "aws_vpc" "existing-vpc" {
+  id = var.vpc_id
+}
+
+
+resource "aws_subnet" "myapp-subnet-2" {
+  vpc_id = data.aws_vpc.existing-vpc.id
+  availability_zone = "eu-central-1a"
+  cidr_block = cidrsubnet(data.aws_vpc.existing-vpc.cidr_block,8,)
+}
