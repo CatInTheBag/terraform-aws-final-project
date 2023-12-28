@@ -12,3 +12,45 @@ resource "aws_subnet" "myapp-subnet-2" {
   availability_zone = "eu-central-1a"
   cidr_block = cidrsubnet(data.aws_vpc.existing-vpc.cidr_block,8,)
 }
+
+#not sure how to test
+resource "aws_network_interface" "myapp-network-interface" {
+  subnet_id = aws_subnet.myapp-subnet-1.id
+  private_ips = ["10.0.10.2"]
+  security_groups = [aws_security_group.myapp-security-group.id]
+
+  attachment {
+    instance = aws_instance.myapp-ec2.id
+    device_index = 1
+  }
+}
+
+#not working correctly 
+data "aws_ami" "latest-amazon-linux-image" {
+  most_recent = true
+  owners = ["137112412989"]
+
+  filter {
+    name = "name"
+    values = ["amzn2-ami-*-x86_64-gp2"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+
+  filter {
+    name = "architecture"
+    values = ["x86_64"]
+  }
+}
+
+output "aws_ami_id" {
+  value = data.aws_ami.latest-amazon-linux-image.id 
+}
+
+variable "ssh_key" {
+  type = string
+  description = "public ssh key"
+}
