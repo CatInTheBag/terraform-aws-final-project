@@ -34,7 +34,7 @@ resource "aws_security_group" "myapp-security-group" {
 
 resource "aws_key_pair" "ssh-key" {
   key_name = "ssh-key"
-  public_key = file(var.public_key_path)
+  public_key = var.public_key
 }
 
 resource "aws_instance" "myapp-ec2" {

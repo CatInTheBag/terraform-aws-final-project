@@ -34,7 +34,7 @@ module "myapp-server" {
   source = ".\\modules\\webserver"
   env_prefix = var.env_prefix
   my_ip = var.my_ip
-  public_key_path  = var.public_key_path
+  public_key = var.public_key
   instance_type = var.instance_type
   az_subnet_prefix = var.az_subnet_prefix
   vpc_id = aws_vpc.myapp-vpc.id
