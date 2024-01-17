@@ -5,11 +5,18 @@ terraform {
       version = "~> 5.0"
     }
   }
+
+  backend "s3" {
+    bucket = "myapp-bucket-s3"
+    key = "myapp/state.tfstate"
+    region = "eu-central-1"
+  }
 }
 
 # Configure the AWS Provider
 provider "aws" {
   region = var.availability_zone
+
 }
 
 # Create a VPC
