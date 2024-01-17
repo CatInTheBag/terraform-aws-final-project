@@ -8,7 +8,7 @@ variable "env_prefix" {
   description = "environment"
 }
 
-variable public_key_path {}
+variable public_key {}
 
 variable "instance_type" {
   type = string
