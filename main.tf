@@ -21,13 +21,20 @@ resource "aws_vpc" "myapp-vpc" {
   }
 }
 
-module "myapp-subnet" {
-  source = ".\\modules\\subnet"
-  subnet_cidr_block = var.subnet_cidr_block
-  env_prefix = var.env_prefix
-  availability_zone = var.availability_zone
-  az_subnet_prefix = var.az_subnet_prefix
-  vpc_id = aws_vpc.myapp-vpc.id
+module "vpc" {
+  source = "terraform-aws-modules/vpc/aws"
+
+  name = "myapp-vpc"
+  cidr = var.vpc_cidr_block
+
+  azs             = [var.availability_zonea, var.availability_zoneb]
+  public_subnets  = [var.subnet_cidr_block[0], var.subnet_cidr_block[1]]
+
+  tags = {
+    Name = "${var.env_prefix}-vpc"
+  }
+
+  public_subnet_names = ["${var.env_prefix}-subnet-1", "${var.env_prefix}-subnet-2"]
 }
 
 module "myapp-server" {
@@ -37,7 +44,7 @@ module "myapp-server" {
   public_key = var.public_key
   instance_type = var.instance_type
   az_subnet_prefix = var.az_subnet_prefix
-  vpc_id = aws_vpc.myapp-vpc.id
+  vpc_id = module.vpc.vpc_id
   availability_zone = var.availability_zone
-  webserver_subnet_id = module.myapp-subnet.myapp-subnet-1.id
+  webserver_subnet_id = module.vpc.public_subnets[0]
 }

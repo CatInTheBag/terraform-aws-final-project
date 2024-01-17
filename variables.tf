@@ -19,6 +19,16 @@ variable "availability_zone"{
   description = "AZ"
 }
 
+variable "availability_zonea"{
+  type = string
+  description = "AZ"
+}
+
+variable "availability_zoneb"{
+  type = string
+  description = "AZ"
+}
+
 variable "az_subnet_prefix"{
   type = string
   description = "AZ subnet"
