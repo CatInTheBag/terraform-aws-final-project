@@ -14,10 +14,10 @@ availability_zoneb = "eu-central-1b"
 az_subnet_prefix = "eu-central-1"
 
 #ip
-my_ip = {{ secrets.PRIVATE_IP}}
+my_ip = "{{ secrets.PRIVATE_IP}}"
 
 #ami type
 instance_type = "t2.micro"
 
 #public ssh key
-public_key = {{ secrets.PUBLIC_KEY }}
+public_key = "{{ secrets.PUBLIC_KEY }}"
