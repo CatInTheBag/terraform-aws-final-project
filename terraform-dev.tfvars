@@ -14,10 +14,8 @@ availability_zoneb = "eu-central-1b"
 az_subnet_prefix = "eu-central-1"
 
 #ip
-my_ip = "${my_ip}"
 
 #ami type
 instance_type = "t2.micro"
 
 #public ssh key
-public_key = "${public_key}"
