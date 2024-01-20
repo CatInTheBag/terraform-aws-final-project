@@ -35,8 +35,9 @@ variable "az_subnet_prefix"{
 }
 
 variable "my_ip" {
-  type = string
-  description = "ip for ssh"
+  description = "The IP address"
+  type        = string
+  default     = null
 }
 
 variable "instance_type" {
@@ -44,4 +45,8 @@ variable "instance_type" {
   description = "ami instance type"
 }
 
-variable public_key {}
+variable "public_key" {
+  description = "The public SSH key"
+  type        = string
+  default     = null
+}
