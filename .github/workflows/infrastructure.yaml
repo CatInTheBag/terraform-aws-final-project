@@ -40,5 +40,5 @@ jobs:
         run: terraform init
 
       - name: Apply terraform
-        run: terraform apply --auto-approve -var-file terraform-dev.tfvars
+        run: terraform apply --auto-approve -var="my_ip=${PRIVATE_IP}" -var-file=terraform-dev.tfvars
 
