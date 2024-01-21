@@ -2,7 +2,7 @@
 set -e  # Exit script on any command that returns a non-zero status
 set -x  # Enable debugging
 
-LOG_FILE="./logfile.log"
+LOG_FILE="$HOME/logfile.log"
 
 # Function for logging
 log() {
