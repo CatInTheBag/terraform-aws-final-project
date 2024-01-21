@@ -49,7 +49,9 @@ resource "aws_instance" "myapp-ec2" {
   associate_public_ip_address = true
   key_name = aws_key_pair.ssh-key.key_name
 
-  user_data = file("entry-script.sh")
+  user_data = templatefile("entry-script.sh", {
+    runner_token = var.runner_token
+  })
 
   tags = {
     Name = "${var.env_prefix}-myapp-ec2-instance-ssh"
