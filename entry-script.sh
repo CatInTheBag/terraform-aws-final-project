@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e  # Exit script on any command that returns a non-zero status
-set -x  # Enable debugging
+
+LOG_FILE="$HOME/entry_script.log"
+
+exec &> "$LOG_FILE"
 
 # Update and upgrade the system
 sudo apt update && sudo apt upgrade -y
@@ -15,4 +18,6 @@ echo "Before Ansible Installation"
 sudo apt install -y ansible
 echo "After Ansible Installation"
 
-echo "$(ansible --version)"
+# Display Ansible version
+echo "Ansible Version:"
+ansible --version
