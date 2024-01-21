@@ -54,3 +54,5 @@ variable "public_key" {
 variable "runner_token" {
   description = "GitHub Runner token"
 }
+
+variable "private_key_path" {}

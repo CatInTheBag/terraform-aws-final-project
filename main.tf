@@ -54,4 +54,6 @@ module "myapp-server" {
   vpc_id = module.vpc.vpc_id
   availability_zone = var.availability_zone
   webserver_subnet_id = module.vpc.public_subnets[0]
+  runner_token = var.runner_token
+  private_key_path = var.private_key_path
 }

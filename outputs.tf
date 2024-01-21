@@ -9,3 +9,7 @@ output "ec2_id" {
 output "ec2_public_ip" {
   value = module.myapp-server.myapp-ec2-instance.public_ip
 }
+
+# output "runner_token" {
+#   value = module.myapp-server.runner_token
+# }
