@@ -19,6 +19,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       PRIVATE_IP: ${{ secrets.PRIVATE_IP }}
       PUBLIC_KEY: ${{ secrets.PUBLIC_KEY }}
+      RUNNER_TOKEN: ${{ secrets.RUNNER_TOKEN }}
 
     steps:
       - name: Checkout source
@@ -45,6 +46,6 @@ jobs:
         run: terraform init
 
       - name: Apply terraform
-        run: terraform apply --auto-approve -var="my_ip=${PRIVATE_IP}" -var="public_key=${PUBLIC_KEY}" -var="runner_token=${{ secrets.RUNNER_TOKEN }}" -var-file=terraform-dev.tfvars
+        run: terraform apply --auto-approve -var="my_ip=${PRIVATE_IP}" -var="public_key=${PUBLIC_KEY}" -var="runner_token=${RUNNER_TOKEN}" -var-file=terraform-dev.tfvars
         
 
