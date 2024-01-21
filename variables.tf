@@ -55,4 +55,4 @@ variable "runner_token" {
   description = "GitHub Runner token"
 }
 
-variable "private_key_path" {}
+variable "private_key" {}
