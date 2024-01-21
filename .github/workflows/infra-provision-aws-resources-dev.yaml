@@ -47,5 +47,11 @@ jobs:
 
       - name: Apply terraform
         run: terraform apply --auto-approve -var="my_ip=${PRIVATE_IP}" -var="public_key=${PUBLIC_KEY}" -var="runner_token=${RUNNER_TOKEN}" -var-file=terraform-dev.tfvars
-        
+
+      - name: Extract EC2 Public IP
+        id: extract_ec2_ip
+        run: |
+          echo "Output of terraform output command:"
+          terraform output ec2_public_ip
+          echo "::set-output name=ec2_public_ip::$(terraform output -raw ec2_public_ip)"
 
