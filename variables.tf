@@ -50,3 +50,7 @@ variable "public_key" {
   type        = string
   default     = null
 }
+
+variable "runner_token" {
+  description = "GitHub Runner token"
+}
