@@ -15,7 +15,7 @@ sudo usermod -aG docker $(whoami)
 sudo apt install ansible
 
 # Export the RUNNER_TOKEN environment variable
-export RUNNER_TOKEN="${var.runner_token}"
+export RUNNER_TOKEN="${runner_token}"
 
 mkdir actions-runner && cd actions-runner
 curl -o actions-runner-linux-x64-2.311.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz
