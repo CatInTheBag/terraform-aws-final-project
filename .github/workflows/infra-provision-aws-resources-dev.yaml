@@ -49,7 +49,7 @@ jobs:
         run: |
           echo "::add-mask::$PRIVATE_IP"
           echo "::add-mask::$PUBLIC_KEY"
-          echo "::add-mask::$TOKENY"
+          echo "::add-mask::$TOKEN"
       
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
