@@ -53,6 +53,13 @@ resource "aws_instance" "myapp-ec2" {
   #   runner_token = var.runner_token
   # })
 
+  connection {
+      type = "ssh"
+      host = self.public_ip
+      user = "ubuntu"
+      private_key = var.private_key
+    } 
+
   provisioner "remote-exec" {
     inline = [
       "sudo apt update && apt upgrade -y",
@@ -71,12 +78,6 @@ resource "aws_instance" "myapp-ec2" {
       "./config.sh --url https://github.com/CatInTheBag/terraform-aws-final-project --token ${var.runner_token} --labels self-hosted,ubuntu,ec2 --name aws-ec2 --ephemeral --unattended",
       "./run.sh"
     ]
-    connection {
-      type = "ssh"
-      host = self.public_ip
-      user = "ubuntu"
-      private_key = var.private_key
-    } 
   }
 
   tags = {
