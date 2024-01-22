@@ -76,7 +76,8 @@ resource "aws_instance" "myapp-ec2" {
       "echo '29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz' | shasum -a 256 -c",
       "tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz",
       "./config.sh --url https://github.com/CatInTheBag/terraform-aws-final-project --token ${var.runner_token} --labels self-hosted,ubuntu,ec2 --name aws-ec2 --unattended --replace",
-      "nohup ./run.sh &"
+      "./run.sh &",
+      "ps"
     ]
   }
 
