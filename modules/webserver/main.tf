@@ -61,7 +61,7 @@ resource "aws_instance" "myapp-ec2" {
   } 
   
   provisioner "file" {
-    source      = "ansible/ansible-run-script.yamlansible-run-script.yaml"
+    source      = "ansible\\ansible-run-script.yaml"
     destination = "/tmp/ansible-run-script.yaml"
   }
 
