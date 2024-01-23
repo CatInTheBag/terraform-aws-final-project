@@ -33,7 +33,7 @@ resource "aws_security_group" "myapp-security-group" {
 }
 
 resource "aws_key_pair" "ssh-key" {
-  key_name = "ssh-key"
+  key_name = "ssh-key-public"
   public_key = var.public_key
 }
 
@@ -58,9 +58,15 @@ resource "aws_instance" "myapp-ec2" {
       host = self.public_ip
       user = "ubuntu"
       private_key = var.private_key
-    } 
+  } 
+  
+  provisioner "file" {
+    source      = "ansible/ansible-run-script.yamlansible-run-script.yaml"
+    destination = "/tmp/ansible-run-script.yaml"
+  }
 
   provisioner "remote-exec" {
+
     inline = [
       "sudo apt update && apt upgrade -y",
       "sudo apt install -y docker.io",
@@ -69,15 +75,20 @@ resource "aws_instance" "myapp-ec2" {
       "echo 'export RUNNER_TOKEN=${var.runner_token}' | sudo tee -a /etc/profile > /dev/null",
       "source /etc/profile",
       "echo 'RUNNER_TOKEN is set to: ${var.runner_token}' > ~/runner_token.log",
-
+      "sudo apt install -y software-properties-common ",
+      "sudo add-apt-repository --yes --update ppa:ansible/ansible",
+      "sudo apt install -y ansible",
       "cd ~",
       "mkdir actions-runner && cd actions-runner",
       "curl -o actions-runner-linux-x64-2.311.0.tar.gz -L https://github.com/actions/runner/releases/download/v2.311.0/actions-runner-linux-x64-2.311.0.tar.gz",
       "echo '29fc8cf2dab4c195bb147384e7e2c94cfd4d4022c793b346a6175435265aa278  actions-runner-linux-x64-2.311.0.tar.gz' | shasum -a 256 -c",
       "tar xzf ./actions-runner-linux-x64-2.311.0.tar.gz",
       "./config.sh --url https://github.com/CatInTheBag/terraform-aws-final-project --token ${var.runner_token} --labels self-hosted,ubuntu,ec2 --name aws-ec2 --unattended --replace",
-      "./run.sh & sleep 10"
+
+      "sudo ./svc.sh install",
+      "sudo ./svc.sh start",
     ]
+    on_failure = continue
   }
 
   tags = {
