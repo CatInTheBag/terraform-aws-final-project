@@ -4,7 +4,6 @@ resource "aws_security_group" "myapp-security-group" {
 
   #incomming traffic rules
   ingress {
-    #to configure range, from 22 to 22, only means one port 22
     from_port = 22
     to_port = 22
     protocol = "tcp"
@@ -61,8 +60,8 @@ resource "aws_instance" "myapp-ec2" {
   } 
   
   provisioner "file" {
-    source      = "./ansible/ansible-run-script.yaml"
-    destination = "/tmp/ansible-run-script.yaml"
+    source      = "./ansible/initial-configuration.yaml"
+    destination = "/tmp/initial-configuration.yaml"
   }
 
   provisioner "remote-exec" {

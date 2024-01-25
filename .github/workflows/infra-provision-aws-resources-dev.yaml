@@ -63,6 +63,3 @@ jobs:
 
       - name: Apply terraform
         run: terraform apply --auto-approve -var="my_ip=${PRIVATE_IP}" -var="public_key=${PUBLIC_KEY}" -var="runner_token=${{ steps.fetch_github_token.outputs.runner_token }}" -var="private_key=${{ secrets.SSH_PRIVATE_KEY }}" -var-file=terraform-dev.tfvars
-
-      - name: Finish
-        run: echo Success
